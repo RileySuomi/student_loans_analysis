@@ -8,6 +8,7 @@ function App() {
   return (
     <>
       <div className= "mx-auto max-w-4xl space-y-4 mb-20">
+
         {/* title */}
         <div className="space-y-2 text-center py-10 rounded-lg shadow-md">
             <h1 
@@ -29,14 +30,27 @@ function App() {
             <h2 className="text-2xl font-bold">Abstract</h2>
             <div>
                 <p className="text-left mx-6 max-w-3xl text-gray-700">
-                    This is the Abstract where we will insert the text of the abstract. 
-                    I'm still typing so I see how it looks as far as UI for the webpage!
-                    So, this obviously isn't the final text, but it is a placeholder for now.
-                    I will be adding more text to this section to see how it looks. Okay,
-                    I think this is enough text for now.
+                    The exponential growth of student debt in the United States represents a major 
+                    economic issue, with outstanding loans increasing from $387 billion in 2000 to 
+                    $1.8 trillion in 2020 (Looney & Yannelis, 2024). This study investigates how institutional 
+                    type affects student debt accumulation and grant distribution across public, private nonprofit, 
+                    and private for-profit universities. Using data from the National Center for Education 
+                    Statistics and the U.S. Bureau of Labor Statistics, we employed linear regression analyses to 
+                    examine differences in student loan amounts and financial aid distribution across different types
+                    of institutions. The results demonstrated that both private non-profit and private for-profit 
+                    institutions generate significantly higher average student loan amounts per enrolled student compared 
+                    to public universities (p-value less than 0.05). Private for-profit institutions initially showed 
+                    the highest loans amount at approximately $6,000 in 2000, but private non-profit universities increased at 
+                    a faster rate, surpassing for-profit averages from 2015 onwards. Our analysis of institutional grant 
+                    allocation showed disparities between institution types, with private nonprofit universities increasing
+                    awards from $7,400 to $25,000 (2000-2022), while public and for-profit institutions only increased by 
+                    $3000-$4000 during the same period. Federal grants all increased in amount, but there was no correlation 
+                    with institution type. These findings reveal structural differences in the ways students finance their 
+                    education across different types of institutions. 
                 </p>
             </div>
           </div>
+
           {/* intro */}
           <div className="space-y-2 text-center py-10 rounded-lg shadow-md">
             <h2 className="text-2xl font-bold">Introduction</h2>
@@ -63,6 +77,7 @@ function App() {
                 </p>
             </div>
         </div>
+
         {/* methods */}
         <div className="space-y-2 text-center py-10 rounded-lg shadow-md">  
             <h2 className="text-2xl font-bold">Methods</h2>
@@ -89,7 +104,7 @@ function App() {
                     private nonprofit was built using only type and years as predictor variables.  
                 </p>
                 <br />
-                <h2 className="text-1xl text-left mx-6 max-w-3xl font-bold">Data Collection</h2>
+                <h2 className="text-1xl text-left mx-6 max-w-3xl font-bold">Data Analysis</h2>
                 <p className="text-left mx-6 max-w-3xl text-gray-700">To investigate the differences between aid types across universities, we looked 
                     at federal loans awarded, state and local grants awarded, and institutional grants 
                     awarded as well as student loans as previously stated. We performed linear regression 
@@ -98,16 +113,56 @@ function App() {
                 <br />
                 <h2 className="text-1xl text-left mx-6 max-w-3xl font-bold">Variables</h2>
                 <p className="text-left mx-6 max-w-3xl text-gray-700">
-                    Once we have the main dataset we perform analysis with, we can list the 
-                    variables below. Use this paragraph space to describe what we did 
-                    as far as naming the variables and what they mean.
+                    Our main dataset was collected from the National Center for Education Statistics (NCES) which has
+                    been the federal statistical agency responsible for collecting, analyzing, and reporting data 
+                    on the condition of U.S. education—from early childhood to adult education. 
+                    <a
+                      href="https://nces.ed.gov/programs/digest/d23/tables/dt23_331.20.asp?current=yes"
+                      className='text-blue-400 hover:text-blue-600 hover:underline' > You can view the data here.</a>
                 </p>
-                <ul className="list-disc list-inside mx-6 mt-2 text-left">
-                    <li>Year</li>
-                    <li>Money</li>
+                <ul className="list-disc list-inside mx-6 mt-2 text-left text-gray-700">
+                    <li><b>Type:</b> Type of institution (public, private non-profit, private for-profit)</li>
+                    <li><b>Level:</b> Duration of program (2-year, 4-year, both) </li>
+                    <li><b>Year:</b> Academic year</li>
+                    <li><b>num_of_enrolled:</b> Total number of students enrolled during the specified academic year</li>
+                    <li><b>num_awarded_aid:</b> Number of enrolled students who received financial aid</li>
+                    <li><b>ave_federal_grants_award:</b> Average federal grant amount awarded per student in the current academic year dollar</li>
+                    <li><b>avg_state_local_grants_award:</b> Average state financial award/local grant amount awarded per student in the current academic year dollar</li>
+                    <li><b>avg_inst_grants_award:</b> Average institutional grant and scholarship amount per student in the current academic year dollar  </li>
+                    <li><b>avg_student_loans_award:</b> Average student loan amount per student in the current academic year dollar </li>
+                    <li><b>avg_federal_grants_const:</b> Average federal grant amount awarded per student adjusted for inflation to constant 2022-23 academic year dollars</li>
+                    <li><b>avg_state_local_grants_const:</b> Average state financial award/local grant amount per student adjusted for inflation to constant 2022-23 academic year dollars</li>
+                    <li><b>avg_inst_grants_const:</b> Average institutional grant and scholarship amount per student adjusted for inflation to constant 2022-23 academic year dollars</li>
+                    <li><b>avg_student_loans_const:</b> Average student loan amount per student adjusted for inflation to constant 2022-23 academic year dollars</li>
+                </ul>
+                <br />
+                <p className="text-left mx-6 max-w-3xl text-gray-700">
+                    Then we used a merging of two datasets, one from the  
+                    <a
+                      href="https://fred.stlouisfed.org/series/CPIAUCSL"
+                      className='text-blue-400 hover:text-blue-600 hover:underline'> Federal Reserve of Economic Data (FRED) </a> 
+                       and one from the  
+                    <a
+                      href="https://nces.ed.gov/programs/digest/d23/tables/dt23_330.10.asp"
+                      className='text-blue-400 hover:text-blue-600 hover:underline' > NCES</a>
+                    , to look at how cost of attending college
+                    has changed over time, compared to overall inflation over the course of 2000-2023.
+                </p>
+                <br />
+                <p className="text-1xl text-left mx-6 max-w-3xl font-bold">Cost of Institution sheet</p>
+                <ul className="list-disc list-inside mx-6 mt-2 text-left text-gray-700">
+                    <li><b>pct_change_Current_TFRB_4-year_public:</b> Percent change of current dollars for tuition, fees, room, and board (TFRB) at a 4 year public university </li>
+                    <li><b>pct_change_Current_TFRB_4-year_private:</b> Percent change of current dollars for tuition, fees, room, and board (TFRB) at a 4 year private university </li>
+                    <li><b>Year and control of institution:</b> Year that the institution is being observed </li>
+                </ul>
+                <br />
+                <p className="text-1xl text-left mx-6 max-w-3xl font-bold">FRED sheet</p>
+                <ul className="list-disc list-inside mx-6 mt-2 text-left text-gray-700">
+                    <li><b> pct_change_CPI:</b> Percent change in consumer price inflation (CPI)</li>
                 </ul>
             </div>
         </div>
+
         {/* results */}
         <div className="space-y-2 text-center py-10 rounded-lg shadow-md">
             <h2 className="text-2xl font-bold">Results</h2>
@@ -185,6 +240,8 @@ function App() {
                     className="mx-auto mt-4 max-w-3xl rounded-lg shadow-md"     
                     />
                 </p>
+                <br />
+                <br />
                 <iframe src = "https://daltonmermis.shinyapps.io/college_aid_app/"
                 title = "Shiny App Visuals"
                 width = "100%"
@@ -193,18 +250,93 @@ function App() {
                 </iframe>
             </div>
         </div>
+
         {/* disussion */}
         <div className="space-y-2 text-center py-10 rounded-lg shadow-md">
             <h2 className="text-2xl font-bold">Discussion</h2>
             <div>
+                <br />
                 <p className="text-left mx-6 max-w-4xl text-gray-700">
-                    This is the Discussion where we will insert the text of the discussion. 
-                    I'm still typing so I see how it looks as far as UI for the webpage!
-                    So, this obviously isn't the final text, but it is a placeholder for now.
-                    I will be adding more text to this section to see how it looks. Okay,
-                    I think this is enough text for now.
+                    Higher education is a driving force in the development of countries across the world 
+                    (Cheng & You, 2016). However, in the last few decades, we have witnessed a rise in the 
+                    average cost of attending higher education universities. Rising tuition rates paired with 
+                    cuts in state and federal funding has created a standard of student debt across the United 
+                    States (Cheng & You, 2016). Today, we witness a system of high tuition met with high amounts 
+                    of financial aid to help students battle the costs of attending college or university. 
+                    The amount of financial aid provided to students ends up leaving millions of students in debt 
+                    that can last decades and have serious implications on a person's ability to rise economically. 
+                    Typically, higher education is meant to provide a path to higher salaries, which then aids in a 
+                    person’s ability to pay off their student debt, however, in recent years studies have shown that
+                    the return on investment for graduates does not meet that standard (Cheng & You, 2016). From the
+                    years 2000-2010 average undergraduate tuition fees increased by 3.4% each year for public 
+                    universities and rose by 2.8% each year for private universities. These fees are each an 
+                    average of 2.5% higher than the average annual rate of inflation, showing that the cost of 
+                    attending university has become fundamentally more expensive (Cheng & You, 2016).  
                 </p>
+                <br />
+                <p className="text-left mx-6 max-w-4xl text-gray-700">
+                    In this study we have looked at student loans, which must be paid back after attending college,
+                    as well as different types of grants, which do not have to be paid back by students. From our 
+                    results we can see that the average amount of student loans, federal grants, institutional 
+                    grants, and state and local grants have risen since the 2000-2001 academic year across all 
+                    university types, meaning that the amount of debt needed to be paid back is rising across the 
+                    board, but the amount of aid provided rises with it. What type of institution a prospective 
+                    student chooses to attend, however, can impact how much debt a student ends up in or how much 
+                    aid they receive.  
+                </p>
+                <br />
+                <p className="text-left mx-6 max-w-4xl text-gray-700">
+                    Looking at for-profit universities, we can see an increasing trend in the amount of student loans that have been awarded from 2000-01 to 2021-22, and in the 2000-01 academic year student loans were around $1,500 greater than private non-profit universities and around $2,500 greater than private universities. On top of this, for-profit universities have also provided the lowest amount of institutional grants to their students, and since 2015 they have also had the lowest amount of state and local grants provided. This shows how the need for student loans while attending a for-profit university continues to rise, likely because there is not enough aid being provided by these institutions to cut tuition costs. Literature on for-profit universities has also shown that students who attend for-profit universities are also more likely to default on their loans as these universities attempt to appeal to more disadvantaged communities and have higher loan rates in general (Armona et al., 2022). Peak enrollment into for-profit universities was in 2010, at 9.6% percent of all higher education enrollment, which coincides with the peak in student loans shown in our data (Armona et al., 2022). More students mean more student loans, but with this we should also see a rise in aid provided by these institutions, but the amount of institutional and state/local grants provided by for-profit institutions in 2010 were less than $500 greater than what was provided in 2005. Meanwhile there was a jump of over $1,500 in student loans. In combination, high loans and little aid leave students in greater debt and therefore at greater risk of defaulting on their loans. Furthermore, research shows that post-enrollment earnings are also lower for graduates of for-profit universities, meaning there is little return on investment. 
+                </p>
+                <br />
+                <p className="text-left mx-6 max-w-4xl text-gray-700">
+                    Private non-profit universities have also shown an interesting rise in student loans provided, surpassing that of for-profit universities in 2016. However, we also see a much greater rise in both institutional and state/local grants provided to students of non-profit institutions in stark contrast to for-profit. Grants from non-profit institutions have not only been greater on average than either for-profit or public universities, but they have also risen at a greater rate. The rise in student loans awarded to those attending private non-profit institutions is likely due to increased enrollment in these types of institutions. It has historically been thought that these non-profit institutions appealed only to wealthier families as they typically have high tuition rates in comparison to public universities (Chingos, 2017). However, recent studies have shown that in recent decades private universities, on average, are not much more selective than public universities and serve a similar proportion of low-income students as public institutions (Chingos, 2017). These non-profit institutions are typically funded by tuition and endowments, which are donated assets that have been aggregated and are used to fund students, faculty, and other university needs. These endowments are long term and connects donors with a university that typically aligns with the donor's beliefs or mission, and without these donors' private non-profit universities could not exist (American Council of Education, 2024). For example, many non-profit universities are religious institutions and are therefore funded by donors who align with that belief system.
+                </p>
+                <br />
+                <p className="text-left mx-6 max-w-4xl text-gray-700"> 
+                    As non-profit colleges have gained more popularity, we have seen an increase in student loans, but with the help of donors these institutions often commit to providing high financial aid, to reduce future debt for graduates. This pattern of rising loans paired with rising aid, especially in the institutional grant sector, can be seen through our data. 
+                </p>
+                <br />
+                <p className="text-left mx-6 max-w-4xl text-gray-700"> 
+                    Although public universities remain with the lowest on average student debt, the institutional, state/local, and federal grants provided to these students are comparable to for-profit universities. With lower tuition rates, public universities remain a popular option for many students, but students who want smaller class sizes, or flexibility through online classes might decide that private universities better fit their needs. This paper has aimed to fill gaps in how student loans and grants function across different types of universities to help inform students to make the best long-term financial decision for them.
+                </p>
+                <h3 className='text-1xl text-left mx-6 mt-4 max-w-3xl font-bold'>Financial Crisis and COVID: </h3>
+                <p className="text-left mx-6 max-w-4xl text-gray-700">
+                    Trends in our graphs not only show how different types of universities handle financial aid and student loans, but they also show how the previous financial crises affected the types of aid that students apply for and the type of school they attend. From 2008-2010, the Great Recession occurred and acted as a turning point for students that wanted to return to school and pursue a different degree which led to universities enrollment levels increasing. Federal, institutional, and student loans during the 2008-2009 academic year had a higher average award amount trend while state and local grants rose gradually. We notice that after the 2009-2010 academic year the federal grants and student loans drop in amount while institutional grants and state/local grants rose.
+                </p>
+                <br />
+                <p className="text-left mx-6 max-w-4xl text-gray-700">
+                    When COVID-19 occurred and the economy was put on a pause, we can notice another disruption within the data. Leading up to 2020, there is a downwards decline of federal grants and student loans. During the 2020-2021 academic year, we can notice an upward trend in all types of aid, with institutional grants rising the most in average award amount. A study conducted in June of 2024 found that K-12 school received nearly $190 billion in federal relief during the COVID-19 pandemic which 90% was found to be sent directly to local districts (Ross, 2024). With this information, we can predict that the upward trend could be associated with the federal stimulus checks that were given to universities, that were then put back into the school to offer students additional funding.  
+                </p>
+                <h3 className='text-1xl text-left mx-6 mt-4 max-w-3xl font-bold'>Current dilemmas and laws:  </h3>
+                <p className="text-left mx-6 max-w-4xl text-gray-700">
+                     In 2020 when COVID-19 occurred, conversations around student loan forgiveness shifted dramatically. In response to the national emergency, the federal government put a pause on student loan payments, froze interest rates and dropped them to 0%, while also stopping collections on defaulted loans. The goal of these changes was to temporarily provide financial relief to millions of Americans that were facing job loss, economic instability, and general uncertainty. This was put in place from March 13th, 2020, until September 1st, 2023, and was known as an administrative forbearance under the CARES Act (Coronavirus Aid, Relief, and Economic Security Act) and then extended through executive actions and the Department of Education authority.  
+                </p>
+                <br />
+                <p className="text-left mx-6 max-w-4xl text-gray-700">
+                    Following the end of the 2020 pandemic freeze, the Biden administration attempted to formalize a broad-based student loan forgiveness. They proposed a cancel of up to $20,000 in federal student loans for eligible borrowers, by providing long-term relief and address the growing national debt burden upon students. However, in 2023 the U.S. Supreme Court shut down this plan stating that the executive branch is going past their authority. The administration then focused on targeted relief efforts, making adjustments to the Public Service Loan Forgiveness (PSLF) and reforms to the Income-Driven Repayment (IDR).  
+                </p>
+                <br />
+                <p className="text-left mx-6 max-w-4xl text-gray-700">
+                    During the shift of the presidency to former President Trump, Republican lawmakers have begun advancements on new student loan policies. As of May 22nd, the House of Representatives passed a part of the “The One Big Beautiful Bill Act” to propose significant changes to the federal student loan systems while cutting $350 billion in federal spending. This specific bill is the “Student Success and Taxpayer Savings Plan” and it hopes to put savings back in taxpayers’ pockets, simplify loan repayments, streamline student loan options, and create accountability for students and taxpayers (Education and Workforce Committee, 2025). Due to these current laws, it became a challenge to predict how we different types of student loans could look like in the future. The type, structure, and availability of relief programs are going to be subject to the political leadership and court decisions, making long-term planning for any borrowers uncertain and complex.  
+                </p>
+                <br />
             </div>
+        </div>
+        <div className="space-y-2 text-center py-10 rounded-lg shadow-md">
+            <h2 className="text-2xl font-bold">References & Resources</h2>
+            <br />
+            <ul className="list-disc list-inside mx-6 mt-2 text-left text-gray-700">
+                <li>View the 
+                    <a
+                      href="https://github.com/RileySuomi/student_loans_analysis"
+                      className='text-blue-400 hover:text-blue-600 hover:underline' > Github Repository </a>
+                      associated with this study.
+                </li>
+                <li> </li>
+                <li> </li>
+                <li> </li>
+            </ul>
         </div>
       </div>
     </>
