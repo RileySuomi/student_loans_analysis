@@ -1,4 +1,7 @@
 import './App.css'
+import studentloans from './assets/studentloans1.jpg'
+import statelocalgrants from './assets/StateLocalGrants3.jpg'
+import institionalgrants from './assets/InstitutionalGrants2.jpg'
 
 function App() {
   
@@ -105,7 +108,7 @@ function App() {
                 </ul>
             </div>
         </div>
-        {/* reslults */}
+        {/* results */}
         <div className="space-y-2 text-center py-10 rounded-lg shadow-md">
             <h2 className="text-2xl font-bold">Results</h2>
             <div>
@@ -131,7 +134,11 @@ function App() {
                     However, since 2015 private non-profit universities have surpassed for-profit 
                     universities and awarded greater amounts of student loans, following a steeper 
                     increasing trend than that of for-profit universities (t = 4.26, df = 16, p-value 
-                    less than 0.05).      
+                    less than 0.05).  
+                    <img src={studentloans}
+                    alt="Student Loans Over Time"
+                    className="mx-auto mt-4 max-w-3xl rounded-lg shadow-md" 
+                    />    
                 </p>
                 <h3 className='text-1xl text-left mx-6 mt-4 max-w-3xl font-bold'>Institutional Grant Awards</h3>
                 <p className="text-left mx-6 max-w-4xl text-gray-700">
@@ -145,7 +152,11 @@ function App() {
                     increasing from approximately $7,400 awarded in the 2000-2001 school year to almost $25,000 
                     in the 2021-2022 school year, for an increase of almost $18,000. Meanwhile, public and 
                     private for-profit universities have each only increased by approximately $3,000 to $4,000 
-                    from 2000-01 to 2021-22.   
+                    from 2000-01 to 2021-22. 
+                    <img src={institionalgrants}
+                    alt="Institutional Grants Over Time"
+                    className="mx-auto mt-4 max-w-3xl rounded-lg shadow-md" 
+                    />  
                 </p>
                 <h3 className='text-1xl text-left mx-6 mt-4 max-w-3xl font-bold'>Federal Grants</h3>
                 <p className="text-left mx-6 max-w-4xl text-gray-700">
@@ -168,7 +179,11 @@ function App() {
                     and local grants awarded from 2000 to 2015 school years, then grants awarded by public 
                     institutions increases above that of for-profit institutions, showing that state and 
                     local grants awarded by public institutions have increased at a greater rate than 
-                    those awarded by private for-profit universities.    
+                    those awarded by private for-profit universities.   
+                    <img src={statelocalgrants}
+                    alt="State and Local Grants Over Time"
+                    className="mx-auto mt-4 max-w-3xl rounded-lg shadow-md"     
+                    />
                 </p>
                 <iframe src = "https://daltonmermis.shinyapps.io/college_aid_app/"
                 title = "Shiny App Visuals"
