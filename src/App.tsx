@@ -20,6 +20,7 @@ function App() {
             </div>
             <div className="flex items-center space-x-4 text-gray-400 justify-center">
                 <span> Seattle Pacific University</span>
+                <img src="https://instructure-uploads.s3.amazonaws.com/account_62110000000000001/attachments/1210097/favicon.ico" alt="icon" className="w-6 h-6" />
                 <div className="h-4 w-px bg-gray-400"></div>
                 <span> DAT4500</span>
             </div>
