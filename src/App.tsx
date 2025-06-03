@@ -324,7 +324,7 @@ function App() {
             </div>
         </div>
         <div className="space-y-2 text-center py-10 rounded-lg shadow-md">
-            <h2 className="text-2xl font-bold">References & Resources</h2>
+            <h2 className="text-2xl font-bold">References & Related Links</h2>
             <br />
             <ul className="list-disc list-inside mx-6 mt-2 text-left text-gray-700">
                 <li>View the 
@@ -333,9 +333,51 @@ function App() {
                       className='text-blue-400 hover:text-blue-600 hover:underline' > Github Repository </a>
                       associated with this study.
                 </li>
-                <li> </li>
-                <li> </li>
-                <li> </li>
+                <li> The
+                    <a
+                      href="https://daltonmermis.shinyapps.io/college_aid_app/"
+                      className='text-blue-400 hover:text-blue-600 hover:underline' > R ShinyApp </a>
+                      associated with this study. 
+                </li>
+            </ul>
+            <h3 className='text-1xl text-left mx-6 mt-4 max-w-3xl font-bold'>Literatures</h3>
+            <ul className="list-disc list-inside mx-6 mt-2 text-left text-gray-700 text-align-justify">
+                <li>Journal of Financial Economics - 
+                    <a
+                      href="https://www.sciencedirect.com/science/article/abs/pii/S0304405X21005250?casa_token=G2ms_xX8L7AAAAAA:rAtt2g-qRAUTK7SdkVLZ9rKLTmNaDXHMuMlChrhjV2prig2W_70xAue-qATfjfixcgldBFhNEQI"
+                      className='text-blue-400 hover:text-blue-600 hover:underline' > Student debt and default: The role of for-profit colleges</a>
+                      .
+                </li>
+                <li>Education and Workforce Commitee's 
+                    <a
+                      href="https://edworkforce.house.gov/news/documentsingle.aspx?DocumentID=412489"
+                      className='text-blue-400 hover:text-blue-600 hover:underline' > Student Success and Taxpayer Savings Plan </a>
+                      associated with this study.
+                </li>
+                <li>Ecomin Studies at Brookings - 
+                    <a
+                      href="https://www.brookings.edu/wp-content/uploads/2017/02/es_20170216_chingos_evidence_speaks.pdf"
+                      className='text-blue-400 hover:text-blue-600 hover:underline' > Don't forget private, non-profit colleges </a>
+                      .
+                </li>
+                <li>
+                    <a
+                      href="https://www.acenet.edu/Documents/Understanding-College-and-University-Endowments.pdf"
+                      className='text-blue-400 hover:text-blue-600 hover:underline' >Understanding College Endowments</a>
+                      .
+                </li>
+                <li> Harvard Study on
+                    <a
+                      href="https://www.gse.harvard.edu/ideas/news/24/06/how-federal-pandemic-aid-impacted-schools"
+                      className='text-blue-400 hover:text-blue-600 hover:underline' > How Federal Pandemic Aid Impacted Schools</a>
+                      .
+                </li>
+                <li> Cheng, L., & You, C. (2016).
+                    <a 
+                      href="https://www.brookings.edu/wp-content/uploads/2017/02/es_20170216_chingos_evidence_speaks.pdf"
+                      className='text-blue-400 hover:text-blue-600 hover:underline' > Analysis of rising tuition rates in the United States based on clustering analysis and regression models</a>
+                      .
+                </li>
             </ul>
         </div>
       </div>
