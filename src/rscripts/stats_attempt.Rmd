@@ -1,0 +1,340 @@
+---
+title: "shiny app graphs"
+output: github_document
+date: "2025-05-14"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+```{r}
+library(shiny)
+library(tidyverse)
+library(readxl)
+library(openintro)
+library(ggplot2)
+```
+
+## Getting the data
+
+```{r}
+college_aid <- read_excel("college aid 2000-2022.xlsx", skip = 2)
+college_aid <- college_aid |>
+  rename(Year = `Control and level of institution, and year`)
+
+college_aid <- college_aid |>
+  mutate(Type = ifelse(is.na(`Number enrolled`), Year, NA)) |>
+  fill(Type) |>
+  mutate(Type = str_squish(Type), 
+         Year = str_squish(Year)) |>
+  filter(!is.na(`Number enrolled`)) |>
+  mutate(Level = ifelse(Type %in% c("2-year", "4-year"), Type, "Both")) |>
+  select(Type, Level, everything()) |>
+  mutate(Type = ifelse(Type %in% c("2-year", "4-year"), NA, Type)) |>
+  fill(Type)
+
+
+names(college_aid)<- c(
+  "type",
+  "level",
+  "year",
+  "num_of_enrolled",
+  "num_awarded_aid",
+  "pct_sutdents_awarded_aid",
+  "pct_with_fed_grants", 
+  "pct_with_state_local_grants", 
+  "pct_with_institutional_grant", 
+  "pct_student_loans",
+  "avg_federal_grants_award", 
+  "avg_state_local_grants_award", 
+  "avg_inst_grants_award", 
+  "avg_student_loans_award",
+  "avg_federal_grants_const", 
+  "avg_state_local_grants_const", 
+  "avg_inst_grants_const", 
+  "avg_student_loans_const"
+)
+
+college_aid <- college_aid |>
+  mutate(across(
+    .cols = num_of_enrolled:avg_student_loans_const,
+    .fns  = ~ round(as.numeric(.), 3)
+  ))
+
+aid_group_long <- college_aid |>
+  pivot_longer(
+    cols = c(avg_federal_grants_award, 
+             avg_state_local_grants_award, 
+             avg_inst_grants_award, 
+             avg_student_loans_award),
+    values_to = "avg_award",
+    names_to = "aid_type") |>
+  mutate(
+    aid_type = recode(aid_type,
+                      avg_federal_grants_award   = "Federal Grants",
+                      avg_state_local_grants_award = "State/Local Grants",
+                      avg_inst_grants_award = "Institutional Grants",
+                      avg_student_loans_award = "Student Loans"),
+    year = factor(year, levels = unique(year))) |>
+  select(type, level, year, aid_type, avg_award)
+
+#still need to remove the first two rows
+college_aid <- college_aid[-c(1,2), ]
+```
+
+
+## stats for private non-profit vs private for-profit
+
+```{r}
+#difference between private non-profit and private for-profit
+college_aid_subset1 <- college_aid[college_aid$type %in% c("Private nonprofit", "Private for-profit"), ]
+
+college_aid_subset_nonvsfor <- college_aid_subset1[college_aid_subset1$level %in% c("Both"), ]
+
+
+```
+
+
+
+## Public vs private non-profit
+```{r}
+#difference between private non-profit and public for average student loans award
+college_aid_avg_stud_loan <- college_aid[college_aid$type %in% c("Private nonprofit", "Public"), ]
+
+college_aid_subset_privvspub <- college_aid_avg_stud_loan[college_aid_avg_stud_loan$level %in% c("Both"), ]
+
+
+```
+
+
+### Linear models?
+
+```{r}
+all_inst_subset <- college_aid[college_aid$type %in% c("All institutions"), ]
+
+all_inst_subset$year_numeric <- as.numeric(sub("-.*", "", all_inst_subset$year))
+
+all_inst_subset$avg_student_loans_award <- as.numeric(all_inst_subset$avg_student_loans_award)
+
+all_institutions_loans_model <- lm(avg_student_loans_award~year_numeric, data = all_inst_subset)
+
+summary(all_institutions_loans_model)
+```
+
+
+```{r}
+ggplot(all_inst_subset, aes(x = year_numeric, y = avg_student_loans_award)) + 
+  geom_point() +
+  geom_smooth(method= 'lm') 
+```
+
+### trying to turn the data linear
+The model below shows public vs private non-profit and it shows that the type was non-significant, and so was the interaction between type and year, however, year was significant which means that average student loan awards have change over time but that change is not dependent on type of university. so they do show a trend on increasing, but the trend is similar between public and private and their is no significant difference between the two.
+
+```{r}
+#first for private nonprofit vs public
+college_aid_subset_privvspub$year_numeric <- as.numeric(sub("-.*", "", college_aid_subset_privvspub$year))
+
+public_subset <- college_aid_subset_privvspub[college_aid_subset_privvspub$type %in% c("Public"), ]
+
+private_nonprofit_subset <- college_aid_subset_privvspub[college_aid_subset_privvspub$type %in% c("Private nonprofit"), ]
+
+#look at plot for public (looks way more linear)
+ggplot(public_subset, aes(x = year_numeric, y = avg_student_loans_award)) + 
+  geom_point() +
+  geom_smooth(method= 'lm')
+
+#look at plot for private nonprofit (also more linear)
+ggplot(private_nonprofit_subset, aes(x = year_numeric, y = avg_student_loans_award)) + 
+  geom_point() +
+  geom_smooth(method= 'lm')
+
+
+#model with interaction
+pubvpriv_model <- lm(avg_student_loans_award ~ type + year_numeric + type:year_numeric, data = college_aid_subset_privvspub)
+
+#model without interaction
+pubvpriv_model1 <- lm(avg_student_loans_award ~ type + year_numeric, data = college_aid_subset_privvspub)
+
+summary(pubvpriv_model1)
+
+
+#check assumption
+plot(pubvpriv_model$fitted.values, resid(pubvpriv_model), main="Residuals vs. Fitted",
+     xlab="Fitted values", ylab="Residuals")
+
+qqnorm(resid(pubvpriv_model))
+
+res1 <- resid(pubvpriv_model)
+```
+
+### Private non-profit vs private for-profit
+
+This one does show significance for all three things which means that there is a significant difference between private non-profit and private for-profit, and that student loans do show a general trend that changes over time that is not the same rate for nonprofit and for-profit.
+
+```{r}
+college_aid_subset_nonvsfor$year_numeric <- as.numeric(sub("-.*", "", college_aid_subset_nonvsfor$year))
+
+#try to see if private for profit is linear (not super linear)
+private_forprofit_subset <- college_aid_subset_nonvsfor[college_aid_subset_nonvsfor$type %in% c("Private for-profit"), ]
+
+ggplot(private_forprofit_subset, aes(x = year_numeric, y = avg_student_loans_award)) + 
+  geom_point() +
+  geom_smooth(method= 'lm')
+
+#try a model
+nonprofitvforprofit_model <- lm(avg_student_loans_award ~ type + year_numeric + type:year_numeric, data = college_aid_subset_nonvsfor)
+
+summary(nonprofitvforprofit_model)
+
+#check assumptions
+res <- resid(nonprofitvforprofit_model)
+
+plot(nonprofitvforprofit_model$fitted.values, resid(nonprofitvforprofit_model), main="Residuals vs. Fitted",
+     xlab="Fitted values", ylab="Residuals")
+
+```
+
+```{r}
+ggplot(college_aid_subset_nonvsfor, aes(x = year_numeric, y = avg_student_loans_award, color = type)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  theme_minimal() +
+  labs(title = "Interaction Between Year & University Type",
+       x = "Year", y = "Avg Student Loans Award")
+
+ggplot(college_aid_subset_privvspub, aes(x = year_numeric, y = avg_student_loans_award, color = type)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  theme_minimal() +
+  labs(title = "Interaction Between Year & University Type",
+       x = "Year", y = "Avg Student Loans Award")
+```
+
+### Public vs private for-profit
+i am unsure if I should keep the transformation here, if it really does anything
+
+```{r}
+college_aid_subset_pubvprivforprofit <- college_aid[college_aid$type %in% c("Public", "Private for-profit"), ]
+
+college_aid_subset_pubvprivforprofit1 <- college_aid_subset_pubvprivforprofit[college_aid_subset_pubvprivforprofit$level %in% c("Both"), ]
+
+college_aid_subset_pubvprivforprofit1$year_numeric <- as.numeric(sub("-.*", "", college_aid_subset_pubvprivforprofit1$year))
+
+#model
+pubvprivateforprofit_model <- lm(avg_student_loans_award ~ type + year_numeric + type:year_numeric, data = college_aid_subset_pubvprivforprofit1)
+
+summary(pubvprivateforprofit_model)
+
+#check assumptions
+res2 <- resid(pubvprivateforprofit_model)
+qqnorm(res2)
+qqline(res2)
+
+plot(pubvprivateforprofit_model$fitted.values, resid(pubvprivateforprofit_model), main="Residuals vs. Fitted",
+     xlab="Fitted values", ylab="Residuals")
+
+#look at a plot
+ggplot(college_aid_subset_pubvprivforprofit1, aes(x = year_numeric, y = avg_student_loans_award, color = type)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  theme_minimal() +
+  labs(title = "Interaction Between Year & University Type",
+       x = "Year", y = "Avg Student Loans Award")
+
+# attempting a log transformation
+college_aid_subset_pubvprivforprofit1$log_y <- log(college_aid_subset_pubvprivforprofit1$avg_student_loans_award)
+
+log_pubvforprofit_model <- lm(log_y ~ type * year_numeric, data = college_aid_subset_pubvprivforprofit1)
+
+summary(log_pubvforprofit_model)
+
+#re-check assumptions with log
+reslog <- resid(log_pubvforprofit_model)
+qqnorm(reslog)
+qqline(reslog)
+
+#look at a plot for log
+ggplot(college_aid_subset_pubvprivforprofit1, aes(x = year_numeric, y = log_y, color = type)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  theme_minimal() +
+  labs(title = "Interaction Between Year & University Type",
+       x = "Year", y = "Avg Student Loans Award")
+```
+
+
+### Regression for institutional grants
+
+```{r}
+#public vs private nonprofit
+
+#model with interaction
+pubvpriv_model_inst_grants <- lm(avg_inst_grants_award ~ type + year_numeric + type:year_numeric, data = college_aid_subset_privvspub)
+
+summary(pubvpriv_model_inst_grants)
+
+
+#public vs private for profit
+#model with no interaction
+pubvprivateforprofit_model_inst_grants <- lm(avg_inst_grants_award ~ type + year_numeric, data = college_aid_subset_pubvprivforprofit1)
+
+summary(pubvprivateforprofit_model_inst_grants)
+
+
+#private vs private
+nonprofitvforprofit_model_inst_grants <- lm(avg_inst_grants_award ~ type + year_numeric + type:year_numeric, data = college_aid_subset_nonvsfor)
+
+summary(nonprofitvforprofit_model_inst_grants)
+```
+
+###Regression for federal grants
+
+```{r}
+#public vs private nonprofit
+
+#model with interaction (non)
+pubvpriv_model_fed_grants <- lm(avg_federal_grants_award ~ type + year_numeric + type:year_numeric, data = college_aid_subset_privvspub)
+
+summary(pubvpriv_model_fed_grants)
+
+
+#public vs private for profit
+#model with no interaction
+pubvprivateforprofit_model_fed_grants <- lm(avg_federal_grants_award ~ type + year_numeric, data = college_aid_subset_pubvprivforprofit1)
+
+summary(pubvprivateforprofit_model_fed_grants)
+
+
+#private vs private
+nonprofitvforprofit_model_fed_grants <- lm(avg_federal_grants_award ~ type + year_numeric + type:year_numeric, data = college_aid_subset_nonvsfor)
+
+summary(nonprofitvforprofit_model_fed_grants)
+```
+
+###Regression for state/local
+```{r}
+#public vs private nonprofit
+
+#model with interaction (non)
+pubvpriv_model_state_grants <- lm(avg_state_local_grants_award ~ type + year_numeric + type:year_numeric, data = college_aid_subset_privvspub)
+
+summary(pubvpriv_model_state_grants)
+
+
+#public vs private for profit
+#model with no interaction
+pubvprivateforprofit_model_state_grants <- lm(avg_state_local_grants_award ~ type + year_numeric + type:year_numeric, data = college_aid_subset_pubvprivforprofit1)
+
+summary(pubvprivateforprofit_model_state_grants)
+
+
+#private vs private
+nonprofitvforprofit_model_state_grants <- lm(avg_state_local_grants_award ~ type + year_numeric + type:year_numeric, data = college_aid_subset_nonvsfor)
+
+summary(nonprofitvforprofit_model_state_grants)
+```
+
