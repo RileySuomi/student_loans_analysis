@@ -59,22 +59,73 @@ function App() {
                 <p className="text-left mx-6 max-w-4xl text-gray-700">
                     The rising cost of higher education within the United States over the 
                     last few decades has placed an increasingly large financial burden on 
-                    students and their families. Outstanding student loan debt ballooned 
-                    from $387 billion in 2000 to $1.8 trillion in 2020,  (Looney & Yannelis, 2024). 
-                    These rising costs include costs of tuition, as well as fees and boarding 
-                    expenses for living on campus. With these rising costs, more students and 
-                    families are relying upon different types of aid to be able to access post-secondary education. 
-                    Students and families must rely on financial aid, including federal and private loans. 
-                    This project aims to investigate how different types of institutions – public, private 
-                    nonprofit, and private for-profit – affect the amount and structure of student debt. 
-                    By examining how the type of institution attended correlates with borrowing trends, 
-                    we aim to find patterns between the university type and amount of student debt incurred. 
-                    Our report also features an assessment of how college costs have trended compared to overall U.S. 
-                    inflation, which we measured through the Consumer Price Index (CPI). Through this analysis, 
-                    we were able to measure how much college attendance costs have increased between 1999 and 2023, 
-                    and we quantified the erosion of consumer purchasing power across that period. This allows us to 
-                    look closer at how the rising costs and any economic pressures may impact borrowers depending on 
-                    the type of institution they attend and the type of aid they hope to receive.  
+                    students and their families.  These rising costs include costs of tuition,
+                    as well as fees and boarding expenses for living on campus. With these 
+                    rising costs, more students and families are relying upon different types 
+                    of aid to be able to access post-secondary education. Students and families 
+                    must rely on external financial aid, including loans, federal grants, 
+                    institutional grants, and state or local grants.  
+                </p>
+                <br />
+                <p className="text-left mx-6 max-w-4xl text-gray-700">
+                    <b>This project aims to investigate how different types of institutions – public, 
+                    private nonprofit, and private for-profit – affect the amount and structure of 
+                    student debt</b>. By examining how the type of institution attended correlates with 
+                    borrowing trends, we aim to find patterns between the university type and 
+                    amount of student debt incurred as well as aid provided by grants incurred. 
+                    Our report also features an assessment of how college costs have trended 
+                    compared to overall U.S. inflation, which we measured through the Consumer 
+                    Price Index (CPI). Through this analysis, we were able to measure how much 
+                    college attendance costs have increased between 1999 and 2023, and we 
+                    quantified the erosion of consumer purchasing power across that period. This 
+                    allows us to look closer at how the rising costs and any economic pressures may 
+                    impact borrowers depending on the type of institution they attend and the type 
+                    of aid they hope to receive.   
+                </p>
+                <br />
+                <h2 className="text-1xl text-left mx-6 max-w-3xl font-bold">Literature Review</h2>
+                <p className="text-left mx-6 max-w-4xl text-gray-700">
+                    The relationship between institution type and student debt accumulation has 
+                    garnered significant attention in recent higher education and microeconomic 
+                    literature. Previous studies have consistently concluded that the type of 
+                    institution a student attends significantly influences both borrowing patterns 
+                    and debt outcomes, laying a foundation for understanding how public, private 
+                    nonprofit, and private for-profit institutions differ in their financial aid 
+                    structures and student debt burdens.   
+                </p>
+                <br />
+                <p className="text-left mx-6 max-w-4xl text-gray-700">
+                    Research examining the Bennett Hypothesis has provided relevant insights into 
+                    how different institutional types respond to federal financial aid availability. 
+                    The hypothesis, first coined by former Secretary of Education William Bennett 
+                    in 1987, suggests that increases in federal student aid enable colleges to raise 
+                    tuition prices. Recent research has found support for this hypothesis across 
+                    different institutional types. Lucca, Nadauld, and Shen (2019) found that 
+                    increases in federal loan limits resulted in tuition increases of approximately 
+                    60 cents per dollar for subsidized loans and 20 cents per dollar for unsubsidized 
+                    loans, with effects varying significantly by institution type. Their research 
+                    demonstrated that for-profit institutions and more expensive private colleges 
+                    showed the strongest responses to federal aid increases.
+                </p>
+                <br />
+                <p className="text-left mx-6 max-w-4xl text-gray-700">
+                    Research on financial stress and academic performance has shown that student debt 
+                    affects students differently depending on what type of school they attend. Studies 
+                    have found connections between high student loan debt and students being more likely 
+                    to drop out, take fewer classes, or take longer to graduate 
+                    (Dwyer et al., 2013; Joo et al., 2008). However, few studies have looked at how 
+                    these effects differ across institution types or how schools' own grant programs 
+                    might help reduce these problems.	 
+                </p>
+                <br />
+                <p className="text-left mx-6 max-w-4xl text-gray-700">
+                    While many studies have looked at federal aid and how colleges respond to aid policy 
+                    changes, few have examined how schools' own financial aid strategies work together 
+                    with student borrowing across public, private nonprofit, and private for-profit 
+                    institutions over long time periods. Our study fills this gap by looking at how 
+                    institutional type, student loan amounts, and institutional grants are related from 
+                    2000 to 2022, helping us understand how different types of institutions affect how 
+                    students pay for college.                
                 </p>
             </div>
         </div>
