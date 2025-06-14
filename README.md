@@ -1,3 +1,3 @@
 # Student Loan Debt Analysis 
 
-## Authors : Riley Suomi, Dalton Mermis, Belle Burnside, Pablo Preciado
+## Authors : Riley Suomi, Belle Burnside, Dalton Mermis, Pablo Preciado
